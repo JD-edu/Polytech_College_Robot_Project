@@ -33,57 +33,76 @@ void step(boolean dir, byte dirPin, byte stepperPin, int steps, int speed )
 
 void origin(){
   digitalWrite(X_DIR, true);
-  while(digitalRead(XLIMIT) == 1){
+  //while(digitalRead(XLIMIT) == 1){
+  while(digitalRead(XLIMIT) == 0){
     digitalWrite(X_STP, HIGH);
-    delayMicroseconds(1000);  //속도 조절 
+    delayMicroseconds(200);
+    //delayMicroseconds(1000);  //속도 조절 
     digitalWrite(X_STP, LOW);
-    delayMicroseconds(1000);  // 속도 조절 
+    //delayMicroseconds(1000);  // 속도 조절 
+    delayMicroseconds(200);  // 속도 조절 
   }
   digitalWrite(X_DIR, false);
-  for(int i =0;i < 100;i++){
+  //for(int i =0;i < 100;i++){
+  for(int i =0;i < 400;i++){
     digitalWrite(X_STP, HIGH);
-    delayMicroseconds(1000);  //속도 조절 
+    //delayMicroseconds(1000);  //속도 조절 
+    delayMicroseconds(200);  //속도 조절 
     digitalWrite(X_STP, LOW);
-    delayMicroseconds(1000);  // 속도 조절 
+    //delayMicroseconds(1000);  // 속도 조절 
+    delayMicroseconds(200);  //속도 조절 
   }
   
   Serial.println("스캐너가 원점에 위치함"); 
 }
 
 void test(){
-  step(true, Y_DIR, Y_STP, 200,3000); 
+  //step(true, Y_DIR, Y_STP, 200,3000); 
+  step(true, Y_DIR, Y_STP, 3000,1000); 
   digitalWrite(X_DIR, false);
-  for(int i=0;i<1000;i++){
+  for(int i=0;i<7000;i++){
     digitalWrite(X_STP, HIGH);
-    delayMicroseconds(1000);  //속도 조절 
+    //delayMicroseconds(1000);
+    delayMicroseconds(100);  //속도 조절 
     digitalWrite(X_STP, LOW);
-    delayMicroseconds(1000);  // 속도 조절
+    //delayMicroseconds(1000);
+    delayMicroseconds(100);  // 속도 조절
   } 
   origin();
 }
 
+int m_cnt = 0;
 void measure_sensor(){
   digitalWrite(X_DIR, false);
   for(int j = 0;j < 100;j++){
-    for(int i=0;i<30;i++){
+    //for(int i=0;i<30;i++){
+    for(int i=0;i<300;i++){
       digitalWrite(X_STP, HIGH);
       delayMicroseconds(1000);  //속도 조절 
       digitalWrite(X_STP, LOW);
       delayMicroseconds(1000);  // 속도 조절
     }  
     //delay(100);
-    for (int i = 0; i < 200; i++) {
+    //for (int i = 0; i < 200; i++) {
+    for (int i = 0; i < 3500; i++) {
       digitalWrite(Y_STP, HIGH);
-      delayMicroseconds(3000);  //속도 조절 
+      delayMicroseconds(1000);  //속도 조절
+      //delayMicroseconds(3000);  //속도 조절  
       digitalWrite(Y_STP, LOW);
-      delayMicroseconds(3000);  // 속도 조절 
-      lox.rangingTest(&measure, false); // pass in 'true' to get debug data printout!
+      delayMicroseconds(1000);  // 속도 조절 
+      //delayMicroseconds(3000);  // 속도 조절 
+      m_cnt++;
+      if(m_cnt > 10){
+        lox.rangingTest(&measure, false); // pass in 'true' to get debug data printout!
 
-      if (measure.RangeStatus != 4) {  // phase failures have incorrect data
-        Serial.print("Distance (mm): "); Serial.println(measure.RangeMilliMeter);
-      } else {
-        Serial.println("측정불가");
+        if (measure.RangeStatus != 4) {  // phase failures have incorrect data
+          Serial.print("Distance (mm): "); Serial.println(measure.RangeMilliMeter);
+        } else {
+          Serial.println("측정불가");
+        }
+        m_cnt = 0;
       }
+  
     }
     //delay(100); 
   }
