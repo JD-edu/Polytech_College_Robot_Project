@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # Load the image
-image_path = 'many_shape.png'
+image_path = './robot_LLM_measur_2025/many_shape.png'
 img = cv2.imread(image_path)
 
 if img is None:

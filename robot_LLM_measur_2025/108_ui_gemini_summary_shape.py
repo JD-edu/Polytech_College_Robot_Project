@@ -98,7 +98,7 @@ class GeminiThread(QThread):
         super().__init__()
         self.client = client
         #self.image = image
-        self.image = cv2.imread('many_shape.png')
+        self.image = cv2.imread('many_shape2.png')
 
     def run(self):
         try:
@@ -113,17 +113,7 @@ class GeminiThread(QThread):
                     }
                 ),
               
-                  Part(text="  \
-                     I provide you a image of top view of mechanical component. \
-                     Inside component, there can be a couple of shape. These can be circles, rectangles, squares. \
-                     Please explain this iamge as followings.  Put component analysis at fron of JSON\
-                     1. Explain shape of compoennt \
-                     2. Find shapes inside component.  \
-                     3. Explain each shapes.  \
-                     Regarding bounding box, please find rectangle box to enclose shapes\
-                     Please give JSON format describing each shape inside rectangle. JSON sequxnce is from left to right from up to down direction  \
-                     Below JSON format is just from. When you analysis the image, please do not change JSON form - keyword etc\
-                     JSON foramt example:  "  + json_string
+                Part(text="이미지에 있는 각 서브도형들의 정확한 중심점 위치를 분석해주세요. 각 도형의 중심 좌표를 파악하여 중심점을 표시할 수 있도록 정보를 제공해주세요. 전체 이미지 크기 대비 상대적인 위치로 표현해주세요."
 
                 )
             ]
@@ -141,7 +131,7 @@ class CameraDisplay(QWidget):
     def __init__(self):
         super().__init__()
         configure(api_key="AIzaSyCCNZaqXjtPY6yrB8XqzM96pF09k8_QsGY")  # Initialize API key
-        self.client = GenerativeModel(model_name="gemini-2.0-flash")
+        self.client = GenerativeModel(model_name="gemini-1.5-pro")
         self.image = None
         self.setWindowTitle("Live Camera with Gemini")
 
@@ -193,7 +183,7 @@ class CameraDisplay(QWidget):
     def update_frame(self):
         #ret, self.image = self.camera.read()
         ret = True
-        self.image = cv2.imread('many_shape.png')
+        self.image = cv2.imread('many_shape2.png')
         # fix image display width 
         target_width = 320
         if ret:

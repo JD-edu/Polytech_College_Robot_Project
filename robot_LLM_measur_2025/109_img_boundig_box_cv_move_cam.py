@@ -94,7 +94,7 @@ for i in range(len(shapes_list)):
     s1 = ShapeInfo(shapes_list[i])
     shapes_class_list.append(s1)
 
-image_path = "many_shape.png"
+image_path = "./robot_LLM_measur_2025/many_shape.png"
 image = cv2.imread(image_path)
 cv2.imshow('original', image)
 
