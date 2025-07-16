@@ -6,7 +6,7 @@ from openai import OpenAI
 from shape_info_img import ShapeInfoImage
 
 # OpenAI 클라이언트 초기화
-client = OpenAI(api_key="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")  # ← API 키 보안 주의
+client = OpenAI(api_key="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")  # ← API 키 보안 주의
 
 # Base64 인코딩 함수
 def image_to_base64(image_path):

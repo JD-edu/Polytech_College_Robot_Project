@@ -4,7 +4,7 @@ import base64
 from openai import OpenAI
 
 # OpenAI 클라이언트 초기화
-client = OpenAI(api_key="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")  # ← 여기에 본인 키 입력
+client = OpenAI(api_key="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")  # ← 여기에 본인 키 입력
 
 def image_to_base64(image_path):
     with open(image_path, "rb") as image_file:
