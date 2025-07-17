@@ -27,7 +27,7 @@ except Exception as e:
     openai_client = None
 '''
 CHATGPT_MODEL = "gpt-4o" # Specify the model you want to use. 'gpt-4o' supports vision.
-openai_client = OpenAI(api_key="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")  # ← 여기에 본인 키 입력
+openai_client = OpenAI(api_key="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")  # ← 여기에 본인 키 입력
 
 
 # --- 3. OpenCV 이미지 분석 함수 (Remains unchanged) ---
